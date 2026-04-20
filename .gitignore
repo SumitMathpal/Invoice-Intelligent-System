@@ -36,6 +36,3 @@ Freight_cost_prediction/data/.db
 Thumbs.db
 .vscode/
 .idea/
-
-
-*.db
