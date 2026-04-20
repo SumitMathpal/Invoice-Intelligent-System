@@ -49,11 +49,10 @@ def load_joblib(path: Path):
     _require_file(path)
     return joblib.load(path)
 
-
-def predict_freight(dollars: float, paths: ModelPaths) -> float:
-    model = load_joblib(paths.freight_model)
-    df = pd.DataFrame({"Dollars": [dollars]})
-    return float(model.predict(df)[0])
+def predict_freight(dollars, paths):
+    df = pd.DataFrame(...)  # your existing code
+    prediction = model.predict(df)
+    return float(np.array(prediction).ravel()[0])  # .ravel() flattens any shape safely
 
 
 def predict_flag(features: dict, paths: ModelPaths) -> int:
