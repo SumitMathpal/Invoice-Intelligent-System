@@ -18,7 +18,6 @@ streamlit run app.py
 ```bash
 python smoke_test.py
 ```
-
 ### Project structure
 
 - `app.py`: Streamlit app entrypoint

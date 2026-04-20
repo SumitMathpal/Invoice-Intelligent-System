@@ -31,12 +31,8 @@ Freight_cost_prediction/data/.db
 *.db
 *.sqlite
 *.sqlite3
-
 # OS / Editor
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
-
-
-*.db
