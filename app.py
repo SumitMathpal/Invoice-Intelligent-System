@@ -49,10 +49,11 @@ def load_joblib(path: Path):
     _require_file(path)
     return joblib.load(path)
 
-def predict_freight(dollars, paths):
-    df = pd.DataFrame(...)  # your existing code
-    prediction = model.predict(df)
-    return float(np.array(prediction).ravel()[0])  # .ravel() flattens any shape safely
+
+def predict_freight(dollars: float, paths: ModelPaths) -> float:
+    model = load_joblib(paths.freight_model)
+    df = pd.DataFrame({"Dollars": [dollars]})
+    return float(model.predict(df)[0])
 
 
 def predict_flag(features: dict, paths: ModelPaths) -> int:
@@ -163,17 +164,17 @@ def render_header() -> None:
     st.divider()
 
 
-def render_sidebar() -> Literal["Freight cost", "Invoice flag"]:
+def render_sidebar() -> Literal[ "Invoice flag"]:
     st.sidebar.title("📌 Navigation")
 
     choice = st.sidebar.radio(
         "Choose Module",
-        ["🚚 Freight cost", "⚠️ Invoice flag"],
+        ["⚠️ Invoice flag"],
     )
 
     st.sidebar.info("💡 Tip: Use realistic values for better predictions")
 
-    return "Freight cost" if "Freight" in choice else "Invoice flag"
+    return  "Invoice flag"
 
 
 # -----------------------------
@@ -183,10 +184,6 @@ def render_freight_page(paths: ModelPaths) -> None:
     st.subheader("🚚 Freight Cost Prediction")
 
     st.info("Enter invoice amount to predict shipping (freight) cost")
-
-    with st.expander("Model status", expanded=False):
-        st.write("Freight model path:", str(paths.freight_model))
-        st.write("Exists:", paths.freight_model.exists())
 
     dollars = st.slider("💰 Invoice Dollars", 0, 10000, 1500)
 
@@ -201,7 +198,7 @@ def render_freight_page(paths: ModelPaths) -> None:
             col2.metric("🚚 Predicted Freight", f"{pred:.2f}")
 
         except Exception as e:
-            st.exception(e)
+            st.error(str(e))
 
 
 # -----------------------------
