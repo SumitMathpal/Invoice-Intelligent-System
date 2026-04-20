@@ -185,6 +185,10 @@ def render_freight_page(paths: ModelPaths) -> None:
 
     st.info("Enter invoice amount to predict shipping (freight) cost")
 
+    with st.expander("Model status", expanded=False):
+        st.write("Freight model path:", str(paths.freight_model))
+        st.write("Exists:", paths.freight_model.exists())
+
     dollars = st.slider("💰 Invoice Dollars", 0, 10000, 1500)
 
     if st.button("🔍 Predict Freight"):
@@ -198,7 +202,7 @@ def render_freight_page(paths: ModelPaths) -> None:
             col2.metric("🚚 Predicted Freight", f"{pred:.2f}")
 
         except Exception as e:
-            st.error(str(e))
+            st.exception(e)
 
 
 # -----------------------------
