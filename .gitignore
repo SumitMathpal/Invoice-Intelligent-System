@@ -19,6 +19,7 @@ venv/
 .venv/
 env/
 .env/
+.env
 
 # Streamlit
 .streamlit/secrets.toml
@@ -31,8 +32,13 @@ Freight_cost_prediction/data/.db
 *.db
 *.sqlite
 *.sqlite3
+
+# Logs and Debug
+*.log
+
 # OS / Editor
 .DS_Store
 Thumbs.db
+desktop.ini
 .vscode/
 .idea/
